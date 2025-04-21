@@ -1,0 +1,2 @@
+G:/Projects/Important/TASK_APP/frontend/android/app/.cxx/Debug/6h524071/arm64-v8a/CMakeFiles/edit_cache.dir
+G:/Projects/Important/TASK_APP/frontend/android/app/.cxx/Debug/6h524071/arm64-v8a/CMakeFiles/rebuild_cache.dir
