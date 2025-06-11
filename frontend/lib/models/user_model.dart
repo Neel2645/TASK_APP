@@ -48,18 +48,19 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] as String,
-      email: map['email'] as String,
-      name: map['name'] as String,
-      token: map['token'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
+      id: map['id'] ?? "",
+      email: map['email'] ?? "",
+      name: map['name'] ?? "",
+      token: map['token'] ?? "",
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -69,23 +70,22 @@ class UserModel {
   @override
   bool operator ==(covariant UserModel other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.email == email &&
-      other.name == name &&
-      other.token == token &&
-      other.createdAt == createdAt &&
-      other.updatedAt == updatedAt;
+
+    return other.id == id &&
+        other.email == email &&
+        other.name == name &&
+        other.token == token &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      email.hashCode ^
-      name.hashCode ^
-      token.hashCode ^
-      createdAt.hashCode ^
-      updatedAt.hashCode;
+        email.hashCode ^
+        name.hashCode ^
+        token.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode;
   }
 }
