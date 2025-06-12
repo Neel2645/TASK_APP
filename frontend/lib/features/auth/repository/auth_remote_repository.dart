@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:frontend/core/constants/constants.dart';
 import 'package:frontend/core/services/sp_service.dart';
-// import 'package:frontend/features/auth/repository/auth_local_repository.dart';
+import 'package:frontend/features/auth/repository/auth_local_repository.dart';
 import 'package:frontend/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRemoteRepository {
   final spService = SpService();
-  // final authLocalRepository = AuthLocalRepository();
+  final authLocalRepository = AuthLocalRepository();
 
   Future<UserModel> signUp({
     required String name,
@@ -104,11 +104,11 @@ class AuthRemoteRepository {
       }
       return UserModel.fromJson(userResponse.body);
     } catch (e) {
-      // final user = await authLocalRepository.getUser();
-      // ignore: avoid_print
-      // print(user);
-      // return user;
-      return null;
+      final user = await authLocalRepository.getUser();
+      //ignore: avoid_print
+      print(user);
+      return user;
+
     }
   }
 }
