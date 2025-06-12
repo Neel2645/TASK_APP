@@ -60,6 +60,7 @@ class TasksCubit extends Cubit<TasksState> {
         token: token, tasks: unsyncedTasks);
     // change the tasks that were added to the db from 0 to 1
     if (isSynced) {
+      // ignore: avoid_print
       print("synced done");
       for (final task in unsyncedTasks) {
         taskLocalRepository.updateRowValue(task.id, 1);
