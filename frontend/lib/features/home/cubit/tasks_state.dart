@@ -6,6 +6,9 @@ sealed class TasksState {
 
 final class TasksInitial extends TasksState {}
 
+final class TasksEmpty extends TasksState {}
+
+
 final class TasksLoading extends TasksState {}
 
 final class TasksError extends TasksState {

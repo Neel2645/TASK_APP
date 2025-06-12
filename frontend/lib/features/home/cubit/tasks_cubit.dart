@@ -42,7 +42,11 @@ class TasksCubit extends Cubit<TasksState> {
     try {
       emit(TasksLoading());
       final tasks = await taskRemoteRepository.getTasks(token: token);
-      emit(GetTasksSuccess(tasks));
+      if (tasks.isEmpty) {
+        emit(TasksEmpty());
+      } else {
+        emit(GetTasksSuccess(tasks));
+      }
     } catch (e) {
       emit(TasksError(e.toString()));
     }

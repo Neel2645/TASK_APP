@@ -76,19 +76,66 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
         ],
       ),
       body: BlocConsumer<TasksCubit, TasksState>(
+        // listener: (context, state) {
+        //   if (state is TasksError) {
+        //     ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(content: Text(state.error)),
+        //     );
+        //   } else if (state is AddNewTaskSuccess) {
+        //     ScaffoldMessenger.of(context).showSnackBar(
+        //       const SnackBar(content: Text("Task added successfully!")),
+        //     );
+        //     Navigator.pushAndRemoveUntil(
+        //         context, HomePage.route(), (_) => false);
+        //   }
+        // },
         listener: (context, state) {
           if (state is TasksError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
+              SnackBar(
+                content: Center(
+                  child: Text(
+                    state.error,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+                backgroundColor: Colors.redAccent,
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                elevation: 8,
+              ),
             );
           } else if (state is AddNewTaskSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Task added successfully!")),
+              const SnackBar(
+                content: Center(
+                  child: Text(
+                    "Task added successfully!",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                backgroundColor: Colors.green,
+                behavior: SnackBarBehavior.floating,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                elevation: 8,
+              ),
             );
+
             Navigator.pushAndRemoveUntil(
-                context, HomePage.route(), (_) => false);
+              context,
+              HomePage.route(),
+              (_) => false,
+            );
           }
         },
+
         builder: (context, state) {
           if (state is TasksLoading) {
             return const Center(
@@ -96,64 +143,66 @@ class _AddNewTaskPageState extends State<AddNewTaskPage> {
             );
           }
 
-          return Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: titleController,
-                    decoration: const InputDecoration(
-                      hintText: 'Title',
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: titleController,
+                      decoration: const InputDecoration(
+                        hintText: 'Title',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "Title cannot be empty";
+                        }
+                        return null;
+                      },
                     ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return "Title cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    controller: descriptionController,
-                    decoration: const InputDecoration(
-                      hintText: 'Description',
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: descriptionController,
+                      decoration: const InputDecoration(
+                        hintText: 'Description',
+                      ),
+                      maxLines: 4,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return "Description cannot be empty";
+                        }
+                        return null;
+                      },
                     ),
-                    maxLines: 4,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return "Description cannot be empty";
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  ColorPicker(
-                    heading: const Text('Select color'),
-                    subheading: const Text('Select a different shade'),
-                    onColorChanged: (Color color) {
-                      setState(() {
-                        selectedColor = color;
-                      });
-                    },
-                    color: selectedColor,
-                    pickersEnabled: const {
-                      ColorPickerType.wheel: true,
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: createNewTask,
-                    child: const Text(
-                      'SUBMIT',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                    const SizedBox(height: 10),
+                    ColorPicker(
+                      heading: const Text('Select color'),
+                      subheading: const Text('Select a different shade'),
+                      onColorChanged: (Color color) {
+                        setState(() {
+                          selectedColor = color;
+                        });
+                      },
+                      color: selectedColor,
+                      pickersEnabled: const {
+                        ColorPickerType.wheel: true,
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: createNewTask,
+                      child: const Text(
+                        'SUBMIT',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
