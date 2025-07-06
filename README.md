@@ -47,13 +47,6 @@ A fully responsive, cross-platform **Task Management Application** built using *
  * ✅ Fully typed backend & secure JWT authentication
 
 
-## 🎥 Demo Video
-
-▶️ [Watch Demo Video](https://drive.google.com/file/d/VIDEO_ID/view)
-
-
-
-
 ## 📂 Installation Guide
 
 ### 🔗 Backend (Node.js + Docker)
